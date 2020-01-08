@@ -503,6 +503,102 @@ macro_rules! add_type_bounds {
     }
 }
 
+macro_rules! hello {
+    () => (
+        println!("hello macro");
+    )
+}
+
+macro_rules! x_and_y {
+
+    (x => $e:expr) => (println!("x is {}",$e));
+    (y => $e:expr) => (println!("y is {}",$e));
+}
+
+macro_rules! build_fn {
+    ($func_name:ident) => (
+        fn $func_name(){
+            println!("u called {:?}()",stringify!($func_name));
+        }
+    )
+}
+macro_rules! print_ex {
+    ($ex:expr) => (
+        println!("{:?}=>{:?}",stringify!($ex),$ex);
+    )
+}
+macro_rules! check {
+    ($l:expr; and $r:expr) => (
+        println!("{:?} and {:?} is {:?}",stringify!($l),stringify!($lr),$l && $r)
+    );
+       ($l:expr; or $r:expr) => (
+        println!("{:?} and {:?} is {:?}",stringify!($l),stringify!($lr),$l || $r)
+    );
+
+}
+macro_rules! make_hashMap {
+    ($($key: expr => $value: expr)*) => {
+        {
+             let mut map = HashMap::new();
+             $(
+                map.insert($key, $value);
+             )*
+
+         map
+        };
+    }
+}
+macro_rules! make_hashMap2 {
+    ($($key: expr => $value: expr),*) => {
+        {
+             let mut map = HashMap::new();
+             $(
+                map.insert($key, $value);
+             )*
+
+         map
+        };
+    }
+}
+macro_rules! compr {
+    ($id1: ident | $id2: ident <- [$start: expr ; $end: expr], $cond: expr) => {
+        {
+            let mut vec = Vec::new();
+            for num in $start..$end + 1 {
+                if $cond(num) {
+                    vec.push(num);
+                }
+            }
+            vec
+        }
+    };
+}
+fn even(x: i32) -> bool {
+    x % 2 == 0
+}
+
+fn odd(x: i32) -> bool {
+    x % 2 != 0
+}
+macro_rules! calc {
+    (eval $e:expr) => {{
+        {
+
+            let val: usize = $e;
+            println!("{} = {}",stringify!($e),val);
+
+        }
+
+    }};
+
+    (eval $e:expr, $(eval $es:expr),+) => {
+        {
+            calc! {eval $e}
+            calc! {$(eval $es),+}
+
+        }
+    };
+}
 #[cfg(test)]
 mod tests {
     use std::error::Error;
