@@ -315,29 +315,35 @@ macro_rules! custom_error {
 
 #[doc(hidden)]
 #[macro_export]
-macro_rules! validate_ethereum_address{
-    ($expression:expr) => (
-        let length =  stringify!($expression).len();
-        let mut result = stringify!($expression);
-        match length {
-                44 => result = stringify!($expression),
-                _ =>  panic!("sry,it's not right ethereum address"),
-        }
-        result
-    )
+macro_rules! validate_ethereum_address {
+    ($expression:expr) => {
+        {
+            let length = stringify ! ( $ expression).len();
+            let mut result = stringify !( $ expression);
+            match length {
+            44 => result = stringify ! ( $ expression),
+            _ => panic ! ("sry,it's not right ethereum address"),
+            }
+
+            result
+        };
+    }
 }
 #[doc(hidden)]
 #[macro_export]
-macro_rules! validate_bitcoin_address{
-    ($expression:expr) => (
-        let length =  stringify!($expression).len();
-        let mut result = stringify!($expression);
-        match length {
-                44 => result = stringify!($expression),
-                _ =>  panic!("sry,it's not right ethereum address"),
-        }
-        result
-    )
+macro_rules! validate_bitcoin_address {
+    ($expression:expr) => {
+        {
+            let length = stringify ! ( $ expression).len();
+            let mut result = stringify !( $ expression);
+            match length {
+            44 => result = stringify ! ( $ expression),
+            _ => panic ! ("sry,it's not right ethereum address"),
+            }
+
+            result
+        };
+    }
 }
 
 #[doc(hidden)]
