@@ -334,13 +334,19 @@ macro_rules! validate_ethereum_address {
 macro_rules! validate_bitcoin_address {
     ($expression:expr) => {
         {
-            let length = stringify ! ( $ expression).len();
-            let mut result = stringify !( $ expression);
-            match length {
-            44 => result = stringify ! ( $ expression),
-            _ => panic ! ("sry,it's not right ethereum address"),
-            }
+            let mut result = false;
+            let  address_ = stringify!($expression);
+            let length = stringify!($expression).len();
 
+            if String::from(address_).starts_with("bc") && length == 44{
+                result = true;
+            }
+            else  if String::from(address_).starts_with("1") && length == 34{
+                result = true;
+            }
+              else  if String::from(address_).starts_with("3") && length == 34{
+                result = true;
+            }
             result
         };
     }
